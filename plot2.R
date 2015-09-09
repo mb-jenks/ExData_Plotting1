@@ -12,12 +12,17 @@ dat <- dat[dat$Date >= date1 & dat$Date <= date2,]
 ## Convert the Global Active Power to numeric
 dat$Global_active_power <- as.numeric(as.character(dat$Global_active_power))
 
+## Create new Date/Time column
+dat$DateTime <- strptime(paste(dat$Date, dat$Time), format="%Y-%m-%d %H:%M:%S")
+
 ## Set transparent background
 par(bg = "transparent")
 
-## Create histogram of Global Active Power
-hist(dat$Global_active_power, col = "red", xlab = "Global Active Power (kilowatts)", main = "Global Active Power")
+## Plot the line graph
+plot(dat$DateTime, dat$Global_active_power, type = "l", xlab = "", ylab = "Global Active Power (kilowatts)")
 
 ## Copy to png file and close
-dev.copy(png, "plot1.png", width = 480, height = 480, units = "px", bg = "transparent")
+dev.copy(png, "plot2.png", width = 480, height = 480, units = "px", bg = "transparent")
 dev.off()
+
+
